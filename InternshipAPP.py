@@ -161,7 +161,7 @@ def companyDetails():
         return render_template('company-profile.html', company_details=company_details, logo=logo)
     else:
         # Handle the case where the company is not found
-        return alert "Invalid Company"
+        return "Invalid Company"
 
     return render_template('company-login.html')
 
@@ -203,7 +203,7 @@ def companyDetails():
         return render_template('company-profile.html', company_details=company_details, logo=logo)
     else:
         # Handle the case where the company is not found
-        return alert "Invalid Company"
+        return "Invalid Company"
 
     return render_template('company-login.html')
 
