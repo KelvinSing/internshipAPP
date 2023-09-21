@@ -189,7 +189,7 @@ def companyPostJob():
     db_conn.commit()
     cursor.close()
 
-    return render_template('company-profile.html', company_details=company_details,, logo=logo)
+    return render_template('company-profile.html', company_details=company_details, logo=logo)
 
 @app.route("/lecturer-register", methods=['GET', 'POST'])
 def addLecturer():
