@@ -62,7 +62,7 @@ def joblist():
     return render_template('job-list.html')
 
 @app.route("/lecturer-login", methods=['GET', 'POST'])
-def addLecturer():
+def lecturerLogin():
     return render_template('lecturer-login.html')
 
 @app.route("/post-job", methods=['GET', 'POST'])
