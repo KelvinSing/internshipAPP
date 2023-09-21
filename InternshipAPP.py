@@ -5,6 +5,7 @@ import boto3
 from config import *
 
 app = Flask(__name__,static_folder='assets')
+app.secret_key = 'internship123'
 
 bucket = custombucket
 region = customregion
