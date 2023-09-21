@@ -189,23 +189,5 @@ def companyPostJob():
 
     return render_template('company-profile.html')
 
-@app.route("/get-company-details", methods=['GET', 'POST'])
-def companyDetails():
-    company_email = request.form['Company_Email']
-
-    cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s', (company_email))
-    company_details = cursor.fetchone()
-
-    if company_details:
-        # Pass the company_details to the template for rendering
-        logo = "https://" + bucket + ".s3.amazonaws.com/" + company_details[0] + "_logo.png"
-        return render_template('company-profile.html', company_details=company_details, logo=logo)
-    else:
-        # Handle the case where the company is not found
-        return "Invalid Company"
-
-    return render_template('company-login.html')
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
