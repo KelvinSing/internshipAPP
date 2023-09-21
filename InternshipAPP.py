@@ -184,7 +184,7 @@ def companyPostJob():
 
     insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
-    cursor.execute(insert_sql, (company_name, jobTitle, jobRequirements, jobBenefits, salary, jobType))
+    cursor.execute(insert_sql, (companyName, jobTitle, jobRequirements, jobBenefits, salary, jobType))
     db_conn.commit()
     cursor.close()
 
