@@ -182,9 +182,9 @@ def companyPostJob():
     salary = request.form['salary']
     jobType = request.form['jobType']
 
-    insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
-    cursor.execute(insert_sql, (companyName, jobTitle, jobRequirements, jobBenefits, salary, jobType))
+    cursor.execute(insert_sql, (companyName, jobTitle, jobDescription, jobRequirements, jobBenefits, salary, jobType))
     db_conn.commit()
     cursor.close()
 
