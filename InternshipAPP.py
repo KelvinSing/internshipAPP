@@ -181,6 +181,7 @@ def companyPostJob():
     jobBenefits = request.form['jobBenefits']
     salary = request.form['salary']
     jobType = request.form['jobType']
+    logo = "https://" + bucket + ".s3.amazonaws.com/" + company_details[0] + "_logo.png"
 
     insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
@@ -188,7 +189,7 @@ def companyPostJob():
     db_conn.commit()
     cursor.close()
 
-    return render_template('company-profile.html')
+    return render_template('company-profile.html', company_details=company_details,, logo=logo)
 
 @app.route("/lecturer-register", methods=['GET', 'POST'])
 def addLecturer():
