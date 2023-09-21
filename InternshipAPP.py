@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from pymysql import connections
 import os
 import boto3
@@ -116,7 +116,6 @@ def AddCompany():
         return "Please select a file"
 
     try:
-
         cursor.execute(insert_sql, (company_name, company_email, password, company_description, company_address, contact_number, website_URL, industry, company_size))
         db_conn.commit()
         # Uplaod image file in S3 #
@@ -150,6 +149,7 @@ def AddCompany():
 @app.route("/get-company-details", methods=['GET', 'POST'])
 def companyDetails():
     company_email = request.form['Company_Email']
+    session['company_email'] = company_email
 
     cursor = db_conn.cursor()
     cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s', (company_email))
@@ -161,7 +161,49 @@ def companyDetails():
         return render_template('company-profile.html', company_details=company_details, logo=logo)
     else:
         # Handle the case where the company is not found
-        return "Invalid Company"
+        return alert "Invalid Company"
+
+    return render_template('company-login.html')
+
+@app.route("/company-post-job", methods=['GET', 'POST'])
+def companyPostJob():
+    company_email = session.get('company_email')
+
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s', (company_email))
+    company_details = cursor.fetchone()
+
+    companyName = company_details[0]
+    jobTitle = request.form['jobTitle']
+    jobDescription = request.form['jobDescription']
+    jobRequirements = request.form['jobRequirements']
+    jobBenefits = request.form['jobBenefits']
+    salary = request.form['salary']
+    jobType = request.form['jobType']
+
+    insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    cursor = db_conn.cursor()
+    cursor.execute(insert_sql, (company_name, jobTitle, jobRequirements, jobBenefits, salary, jobType))
+    db_conn.commit()
+    cursor.close()
+
+    return render_template('company-profile.html')
+
+@app.route("/get-company-details", methods=['GET', 'POST'])
+def companyDetails():
+    company_email = request.form['Company_Email']
+
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s', (company_email))
+    company_details = cursor.fetchone()
+
+    if company_details:
+        # Pass the company_details to the template for rendering
+        logo = "https://" + bucket + ".s3.amazonaws.com/" + company_details[0] + "_logo.png"
+        return render_template('company-profile.html', company_details=company_details, logo=logo)
+    else:
+        # Handle the case where the company is not found
+        return alert "Invalid Company"
 
     return render_template('company-login.html')
 
