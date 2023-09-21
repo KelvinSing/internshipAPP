@@ -182,13 +182,29 @@ def companyPostJob():
     salary = request.form['salary']
     jobType = request.form['jobType']
 
-    insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
     cursor.execute(insert_sql, (companyName, jobTitle, jobRequirements, jobBenefits, salary, jobType))
     db_conn.commit()
     cursor.close()
 
     return render_template('company-profile.html')
+
+@app.route("/lecturer-register", methods=['GET', 'POST'])
+def addLecturer():
+    lecturer_name = request.form['lecName']
+    lecturer_id = request.form['lecID']
+    lecturer_nric = request.form['lecNRIC']
+    lecturer_email = request.form['lecEmail']
+    password = request.form['lecPassword']
+
+    cursor = db_conn.cursor()
+    cursor.execute("INSERT INTO Lecturer VALUES (%s, %s, %d, %s, %s)", 
+                       (lecturer_name, lecturer_id, lecturer_nric, lecturer_email, password))
+    db_conn.commit()
+    cursor.close()
+
+    return render_template('lecturer-login.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
