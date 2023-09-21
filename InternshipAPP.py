@@ -199,7 +199,7 @@ def addLecturer():
     password = request.form['lecPassword']
 
     cursor = db_conn.cursor()
-    cursor.execute("INSERT INTO Lecturer VALUES (%s, %s, %d, %s, %s)", 
+    cursor.execute("INSERT INTO Lecturer VALUES (%s, %s, %s, %s, %s)", 
                        (lecturer_name, lecturer_id, lecturer_nric, lecturer_email, password))
     db_conn.commit()
     cursor.close()
