@@ -122,6 +122,7 @@ def AddCompany():
         # Uplaod image file in S3 #
         company_logo_in_s3 = str(company_name) + "_logo" + os.path.splitext(company_logo.filename)[1]
         s3 = boto3.resource('s3')
+        show_msg = "Register Successfully"
 
         try:
             print("Data inserted in MySQL RDS... uploading image to S3...")
@@ -145,7 +146,7 @@ def AddCompany():
     finally:
         cursor.close()
 
-    return render_template('company-login.html')
+    return render_template('company-login.html', show_msg = show_msg)
 
 @app.route("/get-company-details", methods=['GET', 'POST'])
 def companyDetails():
@@ -163,7 +164,7 @@ def companyDetails():
         return render_template('company-profile.html', company_details=company_details, logo=logo)
     else:
         # Handle the case where the company is not found
-        error_message = "Invalid Company"
+        error_message = "Invalid Company Email or Password"
         return render_template('company-login.html', error_message=error_message)
 
 @app.route("/company-post-job", methods=['GET', 'POST'])
