@@ -189,8 +189,9 @@ def companyPostJob():
     cursor.execute(insert_sql, (companyName, jobTitle, jobDescription, jobRequirements, jobBenefits, salary, jobType))
     db_conn.commit()
     cursor.close()
+    show_msg = "Post Job Successfully. Pending Admin to approve it"
 
-    return render_template('company-profile.html', company_details=company_details, logo=logo)
+    return render_template('company-profile.html', company_details=company_details, logo=logo, show_msg=show_msg)
 
 @app.route("/lecturer-register", methods=['GET', 'POST'])
 def addLecturer():
