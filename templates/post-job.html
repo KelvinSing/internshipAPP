@@ -211,6 +211,11 @@
 
     <!-- Template Javascript -->
     <script src="/assets/js/main.js"></script>
+    {% if show_msg %}
+    <script>
+        alert('{{ show_msg }}');
+    </script>
+    {% endif %}
 </body>
 
 </html>
