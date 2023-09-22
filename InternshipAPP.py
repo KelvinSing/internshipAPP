@@ -207,7 +207,7 @@ def addLecturer():
 
     return render_template('lecturer-login.html')
 
-@app.route("/lecturer-login", methods=['GET', 'POST'])
+@app.route("/login-lecturer", methods=['GET', 'POST'])
 def loginLecturer():
     lecturerEmail = request.form['lecEmail']
     lecturerPassword = request.form['lecPassword']
