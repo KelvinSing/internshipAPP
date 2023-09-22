@@ -207,5 +207,26 @@ def addLecturer():
 
     return render_template('lecturer-login.html')
 
+@app.route("/lecturer-login", methods=['GET', 'POST'])
+def loginLecturer():
+    error_message = None  
+    print("lecturer")
+    if request.method=='POST':
+        lecturerEmail = request.form['lecEmail']
+        lecturerPassword = request.form['lecPassword']
+        cursor = db_conn.cursor()
+        cursor.execute("SELECT * FROM Lecturer WHERE LecturerEmail = %s AND LecturerPassword = %s", (lecturerEmail, lecturerPassword))
+        lecturer = cursor.fetchone()
+        cursor.close()
+        print("lecturer")
+
+        if lecturer:
+            return render_template('studentList.html')
+        else:
+            error_message='Login failed! Invalid email or password.'
+            return render_template('lecturer-login.html',error_message)
+        
+    return render_template('lecturer-login.html',error_message)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
