@@ -150,10 +150,11 @@ def AddCompany():
 @app.route("/get-company-details", methods=['GET', 'POST'])
 def companyDetails():
     company_email = request.form['Company_Email']
+    company_password = request.form['Password']
     session['company_email'] = company_email
 
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s', (company_email))
+    cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s AND Password', (company_email, company_password))
     company_details = cursor.fetchone()
 
     if company_details:
@@ -162,9 +163,8 @@ def companyDetails():
         return render_template('company-profile.html', company_details=company_details, logo=logo)
     else:
         # Handle the case where the company is not found
-        return "Invalid Company"
-
-    return render_template('company-login.html')
+        error_message = "Invalid Company"
+        return render_template('company-login.html', error_message=error_message)
 
 @app.route("/company-post-job", methods=['GET', 'POST'])
 def companyPostJob():
