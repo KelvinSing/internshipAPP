@@ -434,6 +434,12 @@
                 console.log('Registering user as ' + role);
             }
         </script>
+
+        {% if error_message %}
+        <script>
+            alert('{{ error_message }}');
+        </script>
+        {% endif %}
 </body>
 
 </html>
