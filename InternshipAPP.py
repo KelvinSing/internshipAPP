@@ -154,7 +154,7 @@ def companyDetails():
     session['company_email'] = company_email
 
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s AND Password', (company_email, company_password))
+    cursor.execute('SELECT * FROM Company_Profile WHERE Company_Email = %s AND Password = %s', (company_email, company_password))
     company_details = cursor.fetchone()
 
     if company_details:
