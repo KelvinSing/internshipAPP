@@ -1023,7 +1023,7 @@ h2 span {
     font-size: 12px;
   }
   
-  .addStudent-box form a {
+  .addStudent-box form button {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -1037,7 +1037,7 @@ h2 span {
     letter-spacing: 4px
   }
   
-  .addStudent-box a:hover {
+  .addStudent-box button:hover {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
@@ -1047,12 +1047,12 @@ h2 span {
                 0 0 100px #03e9f4;
   }
   
-  .addStudent-box a span {
+  .addStudent-box button span {
     position: absolute;
     display: block;
   }
   
-  .addStudent-box a span:nth-child(1) {
+  .addStudent-box button span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
@@ -1070,7 +1070,7 @@ h2 span {
     }
   }
   
-  .addStudent-box a span:nth-child(2) {
+  .addStudent-box button span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
@@ -1089,7 +1089,7 @@ h2 span {
     }
   }
   
-  .addStudent-box a span:nth-child(3) {
+  .addStudent-box button span:nth-child(3) {
     bottom: 0;
     right: -100%;
     width: 100%;
@@ -1108,7 +1108,7 @@ h2 span {
     }
   }
   
-  .addStudent-box a span:nth-child(4) {
+  .addStudent-box button span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;
@@ -1225,14 +1225,14 @@ h2 span {
 	
 }
 
-
 .round-button {
   background-color: #30c06c; /* Change the background color to your preferred color */
   color: #fff; /* Text color */
   border: none;
   border-radius: 50%; /* Makes the button round */
-  width: 150px;
-  height: 75px;
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
   font-size: 30px; /* Adjust the font size as needed */
   cursor: pointer;
   margin-left: 20px; /* Add left margin to separate it from the search button */
