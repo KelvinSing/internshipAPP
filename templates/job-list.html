@@ -122,24 +122,24 @@
                         <!-- Full Time Tab -->
                         <div id="tab-full-time" class="tab-pane fade show p-0">
                             {% for job in approved_jobs %}
-                            {% if job['jobType'] == 'Full-time' %}
+                            {% if job.jobType == 'Full-time' %}
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
                                         <!-- Add company logo here -->
                                         <img class="flex-shrink-0 img-fluid border rounded"
-                                            src="https://{{ bucket }}.s3.amazonaws.com/{{ job['companyName'] }}_logo.png"
+                                            src="{{ logo }}"
                                             alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3">{{ job['jobTitle'] }}</h5>
+                                            <h5 class="mb-3">{{ job.jobTitle' }}</h5>
                                             <span class="text-truncate me-3"><i
                                                     class="fa fa-map-marker-alt text-primary me-2"></i>{{
                                                 job['location'] }}</span>
                                             <span class="text-truncate me-3"><i
-                                                    class="far fa-clock text-primary me-2"></i>{{ job['jobType']
+                                                    class="far fa-clock text-primary me-2"></i>{{ job.jobType.
                                                 }}</span>
                                             <span class="text-truncate me-0"><i
-                                                    class="far fa-money-bill-alt text-primary me-2"></i>{{ job['salary']
+                                                    class="far fa-money-bill-alt text-primary me-2"></i>{{ job.salary
                                                 }}</span>
                                         </div>
                                     </div>
@@ -153,8 +153,7 @@
                                             <a class="btn btn-primary" href="">Apply Now</a>
                                         </div>
                                         <small class="text-truncate"><i
-                                                class="far fa-calendar-alt text-primary me-2"></i>Date Line: {{
-                                            job['dateLine'] }}</small>
+                                                class="far fa-calendar-alt text-primary me-2"></i>Date Line</small>
                                     </div>
                                 </div>
                             </div>
