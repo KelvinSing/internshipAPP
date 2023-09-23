@@ -82,23 +82,23 @@ def companyProfile():
      return render_template('company-profile.html')
 
 @app.route("/cecilia", methods=['GET', 'POST'])
-def companyProfile():
+def cecilia():
      return render_template('cecilia-portfolio.html')
 
 @app.route("/kayln", methods=['GET', 'POST'])
-def companyProfile():
+def kayln():
      return render_template('kayln-portfolio.html')
 
 @app.route("/yuming", methods=['GET', 'POST'])
-def companyProfile():
+def yuming():
      return render_template('yuming-portfolio.html')
 
 @app.route("/kelvin", methods=['GET', 'POST'])
-def companyProfile():
+def kelvin():
      return render_template('kelvin-portfolio.html')
 
 @app.route("/weichung", methods=['GET', 'POST'])
-def companyProfile():
+def weichung():
      return render_template('weichung-portfolio.html')
 
 @app.route("/company-register", methods=['GET', 'POST'])
