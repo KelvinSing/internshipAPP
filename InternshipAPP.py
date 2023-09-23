@@ -542,7 +542,7 @@ def joblist():
     
     # Initialize an empty list to store dictionaries
     jobs = []
-    
+    logos = []
     # Iterate through the fetched data and create dictionaries
     for row in approved_jobs:
         app_dict = {
@@ -552,7 +552,9 @@ def joblist():
             'jobType': row[3]
         }
         jobs.append(app_dict)
-    return render_template('job-list.html', jobs=jobs)
+        logo = "https://" + bucket + ".s3.amazonaws.com/" + row[0] + "_logo.png"
+        logos.append(logo)
+    return render_template('job-list.html', jobs=jobs, logos=logos)
 
 @app.route("/student-register", methods=['POST'])
 def studentRegister():
