@@ -118,8 +118,7 @@
                         </li>
                     </ul>
 
-                    {% for job in jobs %}
-                    {% for logo in logos %}
+                    {% for job, logo in jobs|zip(logos) %}
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="job-item p-4 mb-4">
@@ -149,7 +148,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
                             {% endfor %}
 
                             <!-- Footer Start -->
