@@ -23,10 +23,6 @@ db_conn = connections.Connection(
 output = {}
 table = 'Company_Profile'
 
-@app.route("/", methods=['GET', 'POST'])
-def home():
-    return render_template('index.html')
-
 @app.route("/about", methods=['GET', 'POST'])
 def about():
     return render_template('about.html')
@@ -557,6 +553,31 @@ def joblist():
     
     job_logo = zip(jobs, logos)
     return render_template('job-list.html', job_logo=job_logo)
+
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT companyName, jobTitle, jobType, salary FROM Post_Job WHERE status = 'Approved'")
+    approved_jobs = cursor.fetchall()
+    cursor.close()
+    
+    # Initialize an empty list to store dictionaries
+    jobs = []
+    logos = []
+    # Iterate through the fetched data and create dictionaries
+    for row in approved_jobs:
+        app_dict = {
+            'companyName': row[0],
+            'jobTitle': row[1],
+            'salary': row[2],
+            'jobType': row[3]
+        }
+        jobs.append(app_dict)
+        logo = "https://" + bucket + ".s3.amazonaws.com/" + row[0] + "_logo.png"
+        logos.append(logo)
+    
+    job_logo = zip(jobs, logos)
+    return render_template('index.html', job_logo=job_logo)
 
 @app.route("/student-register", methods=['POST'])
 def studentRegister():
