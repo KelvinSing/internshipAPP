@@ -551,8 +551,7 @@ def joblist():
             'salary': row[2],
             'jobType': row[3]
         }
-       jobs.append(app_dict)
-
+        jobs.append(app_dict)
     return render_template('job-list.html', jobs=jobs)
 
 @app.route("/student-register", methods=['POST'])
