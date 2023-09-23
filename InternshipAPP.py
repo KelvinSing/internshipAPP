@@ -87,7 +87,7 @@ def cecilia():
 
 @app.route("/kayln", methods=['GET', 'POST'])
 def kayln():
-     return render_template('kayln-portfolio.html')
+     return render_template('kalyn-portfolio.html')
 
 @app.route("/yuming", methods=['GET', 'POST'])
 def yuming():
