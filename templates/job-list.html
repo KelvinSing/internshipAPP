@@ -99,10 +99,11 @@
         <!-- Header End -->
 
 
-
+        {% for job in jobs %}
         <div>
-            {{ jobs[0] }}
+            {{ job.companyName }}
         </div>
+        {% endfor %}
 
 
 
