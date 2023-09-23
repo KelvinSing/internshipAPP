@@ -14,8 +14,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -30,11 +31,156 @@
     <!-- Template Stylesheet -->
     <link href="/assets/css/style.css" rel="stylesheet">
 </head>
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: 'Montserrat', sans-serif;
+        height: 100vh;
+        background: #f1f2f6;
+        display: flex;
+        justify-content: center;
+    }
+
+    h1 {
+        margin: 10px 4px;
+    }
+
+    h3 {
+        margin: 4px;
+    }
+
+    p {
+        margin: 4px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    .main {
+        max-width: 2000px;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .cover {
+        /*   background:url(https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80); */
+        background: url(https://images.unsplash.com/photo-1576502200916-3808e07386a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1346&q=80);
+        height: 30%;
+        background-size: cover;
+    }
+
+    .user-pic {
+        width: 20%;
+        border-radius: 50%;
+        position: absolute;
+        top: 20%;
+        left: 15%;
+    }
+
+    .user-main-details {
+        position: absolute;
+        width: 50%;
+        top: 30%;
+        left: 35%;
+        margin-left: 2%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .user-stats {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 4px;
+        margin-top: 4px;
+    }
+
+    .stat-link {
+        color: #2f3542;
+    }
+
+    .user-complete-details {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 0 20px;
+    }
+
+    .user-meta-details {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .user-all-data {
+        margin-left: 10px;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .user-social {
+        border-left: 5px solid #00c5dd;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .sm-link {
+        color: black;
+        margin: 5px;
+        font-size: 20px;
+    }
+
+    .user-techstack {
+        margin-top: 40px;
+        border-left: 5px solid #00c5dd;
+        padding: 5px;
+    }
+
+    .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 4px;
+        justify-content: flex-start;
+        padding: 0;
+    }
+
+    .tech {
+        padding: 5px;
+        background: #ffa283;
+        margin: 2px;
+        border-radius: 5px;
+        color: white;
+        font-size: 15px;
+    }
+</style>
 
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -84,12 +230,12 @@
         <!-- Header End -->
         <div class="container-xxl py-5 bg-dark page-header mb-5">
             <div class="container my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Contact</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-uppercase">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Contact</li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">About</li>
                     </ol>
                 </nav>
             </div>
@@ -97,83 +243,65 @@
         <!-- Header End -->
 
 
-        <!-- Contact Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Contact For Any Query</h1>
-                <div class="row g-4">
-                    <div class="col-12">
-                        <div class="row gy-4">
-                            <div class="col-md-4 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="d-flex align-items-center bg-light rounded p-4">
-                                    <div class="bg-white border rounded d-flex flex-shrink-0 align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
-                                        <i class="fa fa-map-marker-alt text-primary"></i>
-                                    </div>
-                                    <span>Rewa, Madhya Pradesh, IND</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4 wow fadeIn" data-wow-delay="0.3s">
-                                <div class="d-flex align-items-center bg-light rounded p-4">
-                                    <div class="bg-white border rounded d-flex flex-shrink-0 align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
-                                        <i class="fa fa-envelope-open text-primary"></i>
-                                    </div>
-                                    <span>jobEntry@gmail.com</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4 wow fadeIn" data-wow-delay="0.5s">
-                                <div class="d-flex align-items-center bg-light rounded p-4">
-                                    <div class="bg-white border rounded d-flex flex-shrink-0 align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
-                                        <i class="fa fa-phone-alt text-primary"></i>
-                                    </div>
-                                    <span>+016-282-3383</span>
-                                </div>
-                            </div>
-                        </div>
+        <!-- About Start -->
+        <div class="main">
+            <div class="cover">
+
+            </div>
+            <img src="/assets/img/cecilia_image.png" class="user-pic">
+            </img>
+            <div class="user-main-details">
+                <h1>Cecilia Kong Xin Ru</h1>
+                <p> ITP Application Web Developor</p>
+            </div>
+            <div class="user-complete-details">
+                <div class="user-meta-details">
+                    <div class="user-social">
+                        <p>Programme : RDS G4</p>
+                        <p> Module Incharged : Lecturer Module </p>
                     </div>
-                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29035.235998024!2d81.28556709234934!3d24.54068012824352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39845a348b85dbbd%3A0xbc368e68a40a6da9!2sRewa%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1664383570024!5m2!1sen!2sin" width="530" height="470" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="wow fadeInUp" data-wow-delay="0.5s">
-                            <p class="mb-4">Feel free to reach out to me anytime if you have questions, suggestions, or simply want to connect. I value your feedback and am eager to engage in meaningful conversations. Whether it's related to my work, a specific topic, or just a friendly chat, I'm here to listen and respond. You can contact me through the provided channels, and I'll do my best to get back to you as soon as possible. Your input is important to me, and I appreciate the opportunity to connect with you.
-                                  </a></p>
-                            <form>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                            <label for="name">Your Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                            <label for="email">Your Email</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                            <label for="subject">Subject</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
-                                            <label for="message">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="user-techstack">
+                        <p><b>TechStack</b></p>
+                        <ul class="tech-list">
+                            <li class="tech">HTML</li>
+                            <li class="tech">CSS</li>
+                            <li class="tech">Javascript</li>
+                            <li class="tech">Python</li>
+                            <li class="tech">SQL</li>
+                        </ul>
                     </div>
                 </div>
+                <div class="user-all-data">
+                    <h3>About</h3>
+                    <p>I am currently enrolled in a Bachelor's degree program at TARUMT, where I am passionately
+                        immersing myself in the dynamic world of Data Science. My academic journey thus far has been
+                        grounded in a
+                        solid foundation of Computer Science, and it's not just a subject for me; it's a passion that
+                        drives
+                        me forward.</p>
+
+                    <p>&nbsp;</p>
+
+                    <p>I've chosen to specialize in the intriguing fields of Business Intelligence and Analytics because
+                        I am genuinely captivated by the potential of data to transform businesses. The prospect of
+                        extracting
+                        valuable insights from raw data and using them to make well-informed decisions truly excites me.
+                        This educational path not only broadens my knowledge but also fuels my passion for the
+                        convergence of technology,
+                        data, and the art of making strategic choices in the business realm.</p>
+
+                    <p>&nbsp;</p>
+
+                    <p>
+                        I firmly believe that with this enthusiasm driving me, I'm not just studying Data Science;
+                        I'm actively shaping my future in a field that I'm deeply dedicated to,
+                        and I'm eager to see where this journey will lead.
+                    </p>
+                </div>
+
             </div>
         </div>
-        <!-- Contact End -->
+        <!-- About End -->
 
 
         <!-- Footer Start -->
