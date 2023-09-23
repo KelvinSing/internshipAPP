@@ -548,8 +548,8 @@ def joblist():
         app_dict = {
             'companyName': row[0],
             'jobTitle': row[1],
-            'salary': row[5],
-            'jobType': row[6],
+            'salary': row[2],
+            'jobType': row[3]
         }
         logo = "https://" + bucket + ".s3.amazonaws.com/" + row[0] + "_logo.png"
         jobs.append(app_dict)
