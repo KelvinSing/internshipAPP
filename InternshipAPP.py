@@ -182,11 +182,12 @@ def companyPostJob():
     jobBenefits = request.form['jobBenefits']
     salary = request.form['salary']
     jobType = request.form['jobType']
+    status = "Pending"
     logo = "https://" + bucket + ".s3.amazonaws.com/" + company_details[0] + "_logo.png"
 
-    insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO Post_Job VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
-    cursor.execute(insert_sql, (companyName, jobTitle, jobDescription, jobRequirements, jobBenefits, salary, jobType))
+    cursor.execute(insert_sql, (companyName, jobTitle, jobDescription, jobRequirements, jobBenefits, salary, jobType, status))
     db_conn.commit()
     cursor.close()
     show_msg = "Post Job Successfully. Pending Admin to approve it"
@@ -219,7 +220,183 @@ def loginLecturer():
     cursor.close()
 
     if lecturer:
-        return render_template('studentList.html')
+        session['LecturerEmail']=lecturerEmail
+        return redirect(url_for('studentDashboard'))
+    else:
+        show_msg = "Invalid Email Or Password!"
+        return render_template('lecturer-login.html', show_msg=show_msg)
+    
+# List & Search Student Function
+@app.route("/studentDashboardFunc", methods=['GET', 'POST'])
+def studentDashboard():
+    lecturer_email = session.get('LecturerEmail')
+    cursor = db_conn.cursor()
 
+    # Execute a SQL query to fetch data from the database
+    cursor.execute("""
+                   SELECT *
+                   FROM Student
+                   WHERE SupervisorEmail = %s
+                   """, (lecturer_email,))
+    stud_data = cursor.fetchall()  # Fetch all rows
+
+    cursor.close()
+
+    # Initialize an empty list to store dictionaries
+    students = []
+    
+    # Iterate through the fetched data and create dictionaries
+    if stud_data:
+        for row in stud_data:
+            app_dict = {
+                'StudName': row[0],
+                'StudID': row[1],
+                'StudProfile': row[12],
+                'TarumtEmail': row[7],
+                'Programme': row[4],
+                'CompanyName': row[21],
+                'JobAllowance': row[19],
+            }
+            students.append(app_dict)
+        return render_template('studentList.html', students=students)
+
+    return render_template('studentList.html', students=None)
+
+@app.route("/searchStudentFunc", methods=['POST'])
+def searchStudent():
+    student_name = request.form['searchName']
+    cursor = db_conn.cursor()
+    lecEmail = session.get('LecturerEmail')
+
+    # Execute a SQL query to fetch data from the database
+    cursor.execute("""
+                   SELECT *
+                   FROM Student
+                   WHERE SupervisorEmail = %s AND StudName LIKE %s
+                   """, (lecEmail, '%' + student_name + '%'))
+    stud_data = cursor.fetchall()  # Fetch all rows
+    cursor.close()
+
+    # Initialize an empty list to store dictionaries
+    students = []
+
+    if stud_data:
+        # Iterate through the fetched data and create dictionaries
+        for row in stud_data:
+            app_dict = {
+                'StudName': row[0],
+                'StudID': row[1],
+                'StudProfile': row[12],
+                'TarumtEmail': row[7],
+                'Programme': row[4],
+                'CompanyName': row[21],
+                'JobAllowance': row[19],
+            }
+            students.append(app_dict)
+        # Construct profile image URLs for all students
+        return render_template('studentList.html', students=students)
+    else:
+        return render_template('studentList.html', students=None)
+
+# Add Student Supervised Function
+@app.route("/navSupervisorFunc", methods=['GET', 'POST'])
+def navAssignSupervisor():
+    return render_template('addStudent.html')   
+
+@app.route("/assignSupervisorFunc", methods=['GET', 'POST'])
+def assignSupervisor():
+    student_id = request.form['StudentID']
+    student_name = request.form['StudentName']
+    supervisorEmail = session.get('LecturerEmail')
+    update_sql = "UPDATE Student SET SupervisorEmail=%s WHERE StudID=%s AND StudName=%s"
+    cursor = db_conn.cursor()
+
+    cursor.execute(update_sql, (supervisorEmail, student_id, student_name))
+    db_conn.commit()
+    cursor.close()
+    return render_template('addStudent.html')
+
+# Update Student Score Function
+@app.route("/updateScoreFunc", methods=['POST'])
+def updateScore():
+    student_score = request.form['ScoreInput']
+    studentID = session.get('StudID')
+    email = session.get('StudEmail')
+    name = session.get('StudName')
+    update_sql = "UPDATE Student SET Score=%s WHERE StudID=%s AND StudName=%s AND TarumtEmail=%s"
+    cursor = db_conn.cursor()
+    cursor.execute(update_sql, (student_score, studentID, name, email))
+    db_conn.commit()  # Commit changes from the first query
+
+    # Fetch the updated student data after the update
+    cursor2 = db_conn.cursor()
+    retreive_sql = "SELECT * FROM Student WHERE StudID = %s AND TarumtEmail = %s"    
+    cursor2.execute(retreive_sql, (studentID, email,))
+    student_data = cursor2.fetchone()
+
+    db_conn.commit()  # Commit changes from the second query
+
+    # Process or use student_data here if needed
+    cursor.close()
+    cursor2.close()
+    if student_data:
+        #Convert the user record to a dictionary
+        student = {
+            'StudID': student_data[1],
+            'StudName':student_data[0],
+            'Gender': student_data[3],
+            'Programme': student_data[4],
+            'TarumtEmail': student_data[7],
+            'student_profile':student_data[12],
+            'weeklyReport_url':student_data[15],
+            'monthlyReport_url':student_data[16],
+            'finalReport_url':student_data[17],
+            'InternBatch': student_data[9],
+            'CompanyName': student_data[19],
+            'JobPosition': student_data[20],
+            'JobAllowance': student_data[21],
+            }
+        session['StudID']=student['StudID']
+        session['StudEmail']=student['TarumtEmail']
+        session['StudName']=student['StudName']
+        
+    return render_template('viewReport.html',student=student)
+
+#Show Student Details Function
+@app.route("/navStudentDetailFunc", methods=['GET', 'POST'])
+def showStudReport():
+    # Retrieve the studID query parameter from the URL
+    studID = request.args.get('studentID')
+    tarumtEmail= request.args.get('tarumtEmail')
+    # Fetch the info from the database based on studID
+    cursor = db_conn.cursor()
+    retreive_sql = "SELECT * FROM Student WHERE StudID = %s AND TarumtEmail = %s"    
+    cursor.execute(retreive_sql, (studID,tarumtEmail,))
+    student_data = cursor.fetchone()
+    cursor.close()
+
+    
+    if student_data:
+        #Convert the user record to a dictionary
+        student = {
+            'StudID': student_data[1],
+            'StudName':student_data[0],
+            'Gender': student_data[3],
+            'Programme': student_data[4],
+            'TarumtEmail': student_data[7],
+            'student_profile':student_data[12],
+            'weeklyReport_url':student_data[15],
+            'monthlyReport_url':student_data[16],
+            'finalReport_url':student_data[17],
+            'InternBatch': student_data[9],
+            'CompanyName': student_data[19],
+            'JobPosition': student_data[20],
+            'JobAllowance': student_data[21],
+        }
+        session['StudID']=student['StudID']
+        session['StudEmail']=student['TarumtEmail']
+        session['StudName']=student['StudName']
+    
+    return render_template('viewReport.html',student=student)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
