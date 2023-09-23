@@ -308,11 +308,40 @@ def assignSupervisor():
     supervisorEmail = session.get('LecturerEmail')
     update_sql = "UPDATE Student SET SupervisorEmail=%s WHERE StudID=%s AND StudName=%s"
     cursor = db_conn.cursor()
-
+    session['LecturerEmail']=supervisorEmail
     cursor.execute(update_sql, (supervisorEmail, student_id, student_name))
     db_conn.commit()
     cursor.close()
-    return render_template('addStudent.html')
+
+    cursor2 = db_conn.cursor()
+
+    # Execute a SQL query to fetch data from the database
+    cursor2.execute("""
+                   SELECT *
+                   FROM Student
+                   WHERE SupervisorEmail = %s
+                   """, (supervisorEmail,))
+    stud_data = cursor2.fetchall()  # Fetch all rows
+
+    cursor.close()
+    cursor2.close()
+    # Initialize an empty list to store dictionaries
+    students = []
+    
+    # Iterate through the fetched data and create dictionaries
+    if stud_data:
+        for row in stud_data:
+            app_dict = {
+                'StudName': row[0],
+                'StudID': row[1],
+                'StudProfile': row[12],
+                'TarumtEmail': row[7],
+                'Programme': row[4],
+                'CompanyName': row[21],
+                'JobAllowance': row[19],
+            }
+            students.append(app_dict)
+        return render_template('studentList.html', students=students)
 
 # Update Student Score Function
 @app.route("/updateScoreFunc", methods=['POST'])
