@@ -47,10 +47,6 @@ def admin():
 def contact():
     return render_template('contact.html')
 
-@app.route("/job-list", methods=['GET', 'POST'])
-def joblist():
-    return render_template('job-list.html')
-
 @app.route("/lecturer-login", methods=['GET', 'POST'])
 def lecturerLogin():
     return render_template('lecturer-login.html')
@@ -496,24 +492,6 @@ def approveCompany(company_name, job_title):
     db_conn.commit()
     cursor.close()
 
-    cursor = db_conn.cursor()
-    cursor.execute("SELECT companyName, jobTitle, jobType, salary FROM Post_Job WHERE status = 'Approved'")
-    approved_jobs = cursor.fetchall()
-    cursor.close()
-
-    # Initialize an empty list to store dictionaries
-    jobs = []
-    
-    # Iterate through the fetched data and create dictionaries
-    if approved_jobs:
-        for row in approved_jobs:
-            app_dict = {
-                'companyName': row[0],
-                'jobTitle': row[1],
-                'salary': row[5],
-                'jobType': row[6],
-            }
-            jobs.append(app_dict)
     # Remove the approved job from the list of pending jobs in the session
     if 'admin_email' in session:
         admin_email = session['admin_email']
@@ -528,7 +506,7 @@ def approveCompany(company_name, job_title):
         session['companies'] = updated_companies
 
     # Redirect the user to the "job-list.html" page
-    return redirect(url_for('jobList'), approved_jobs=jobs)
+    return render_template('admin.html')
 
 @app.route('/disapprove-company/<company_name>/<job_title>', methods=['GET'])
 def disapproveCompany(company_name, job_title):
@@ -553,6 +531,30 @@ def disapproveCompany(company_name, job_title):
 
     # Redirect the user to the admin dashboard
     return redirect(url_for('adminAccess'))
+
+
+@app.route("/job-list", methods=['GET', 'POST'])
+def joblist():
+    cursor = db_conn.cursor()
+    cursor.execute("SELECT companyName, jobTitle, jobType, salary FROM Post_Job WHERE status = 'Approved'")
+    approved_jobs = cursor.fetchall()
+    cursor.close()
+    
+    # Initialize an empty list to store dictionaries
+    jobs = []
+    
+    # Iterate through the fetched data and create dictionaries
+    for row in approved_jobs:
+        app_dict = {
+            'companyName': row[0],
+            'jobTitle': row[1],
+            'salary': row[5],
+            'jobType': row[6],
+        }
+        logo = "https://" + bucket + ".s3.amazonaws.com/" + row[0] + "_logo.png"
+        jobs.append(app_dict)
+
+    return render_template('job-list.html', approved_jobs=jobs, logo=logo)
 
 @app.route("/student-register", methods=['POST'])
 def studentRegister():
