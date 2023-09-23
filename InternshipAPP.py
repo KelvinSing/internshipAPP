@@ -25,10 +25,6 @@ table = 'Company_Profile'
 def home():
     return render_template('index.html')
 
-@app.route("/404", methods=['GET', 'POST'])
-def error():
-    return render_template('404.html')
-
 @app.route("/about", methods=['GET', 'POST'])
 def about():
     return render_template('about.html')
@@ -45,17 +41,9 @@ def adminLogin():
 def admin():
     return render_template('admin.html')
 
-@app.route("/category", methods=['GET', 'POST'])
-def category():
-    return render_template('category.html')
-
 @app.route("/contact", methods=['GET', 'POST'])
 def contact():
     return render_template('contact.html')
-
-@app.route("/job-detail", methods=['GET', 'POST'])
-def jobdetail():
-    return render_template('job-detail.html')
 
 @app.route("/job-list", methods=['GET', 'POST'])
 def joblist():
@@ -81,10 +69,6 @@ def student():
 def studentList():
     return render_template('studentList.html')
 
-@app.route("/testimonial", methods=['GET', 'POST'])
-def testimonial():
-    return render_template('testimonial.html')
-
 @app.route("/viewReport", methods=['GET', 'POST'])
 def viewReport():
     return render_template('viewReport.html')
@@ -96,6 +80,26 @@ def companyLogin():
 @app.route("/company-profile", methods=['GET', 'POST'])
 def companyProfile():
      return render_template('company-profile.html')
+
+@app.route("/cecilia", methods=['GET', 'POST'])
+def companyProfile():
+     return render_template('cecilia-portfolio.html')
+
+@app.route("/kayln", methods=['GET', 'POST'])
+def companyProfile():
+     return render_template('kayln-portfolio.html')
+
+@app.route("/yuming", methods=['GET', 'POST'])
+def companyProfile():
+     return render_template('yuming-portfolio.html')
+
+@app.route("/kelvin", methods=['GET', 'POST'])
+def companyProfile():
+     return render_template('kelvin-portfolio.html')
+
+@app.route("/weichung", methods=['GET', 'POST'])
+def companyProfile():
+     return render_template('weichung-portfolio.html')
 
 @app.route("/company-register", methods=['GET', 'POST'])
 def AddCompany():
