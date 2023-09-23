@@ -502,7 +502,7 @@ def approveCompany(company_name, job_title):
         session['companies'] = updated_companies
 
     # Redirect the user to the "job-list.html" page
-    return render_template('job-list.html')
+    return redirect(url_for('joblist'))
 
 @app.route('/disapprove-company/<company_name>/<job_title>', methods=['GET'])
 def disapproveCompany(company_name, job_title):
