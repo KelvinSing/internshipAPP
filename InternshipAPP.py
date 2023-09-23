@@ -539,6 +539,7 @@ def joblist():
     cursor.execute("SELECT companyName, jobTitle, jobType, salary FROM Post_Job WHERE status = 'Approved'")
     approved_jobs = cursor.fetchall()
     cursor.close()
+    logo = "https://" + bucket + ".s3.amazonaws.com/" + approved_jobs[0] + "_logo.png"
     
     # Initialize an empty list to store dictionaries
     jobs = []
@@ -551,7 +552,6 @@ def joblist():
             'salary': row[2],
             'jobType': row[3]
         }
-        logo = "https://" + bucket + ".s3.amazonaws.com/" + row[0] + "_logo.png"
         jobs.append(app_dict)
 
     return render_template('job-list.html', approved_jobs=jobs, logo=logo)
