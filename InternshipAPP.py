@@ -498,8 +498,22 @@ def approveCompany(company_name, job_title):
 
     cursor = db_conn.cursor()
     cursor.execute("SELECT companyName, jobTitle, jobType, salary FROM Post_Job WHERE status = 'Approved'")
-    approved_jobs = [{'companyName': row[0], 'jobTitle': row[1], 'jobType': row[2], 'salary': row[3]} for row in cursor.fetchall()]
+    approved_jobs = cursor.fetchall()
     cursor.close()
+
+    # Initialize an empty list to store dictionaries
+    jobs = []
+    
+    # Iterate through the fetched data and create dictionaries
+    if approved_jobs:
+        for row in approved_jobs:
+            app_dict = {
+                'companyName': row[0],
+                'jobTitle': row[1],
+                'salary': row[5],
+                'jobType': row[6],
+            }
+            jobs.append(app_dict)
     # Remove the approved job from the list of pending jobs in the session
     if 'admin_email' in session:
         admin_email = session['admin_email']
@@ -514,7 +528,7 @@ def approveCompany(company_name, job_title):
         session['companies'] = updated_companies
 
     # Redirect the user to the "job-list.html" page
-    return redirect(url_for('jobList'), approved_jobs=approved_jobs)
+    return redirect(url_for('jobList'), approved_jobs=jobs)
 
 @app.route('/disapprove-company/<company_name>/<job_title>', methods=['GET'])
 def disapproveCompany(company_name, job_title):
