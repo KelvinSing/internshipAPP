@@ -43,6 +43,7 @@
         </div>
         <!-- Spinner End -->
 
+
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
@@ -103,109 +104,130 @@
             <div class="rt-container">
                 <div class="col-rt-12">
                     <div class="rt-heading">
-                        <h1>Student Registration Form Example</h1>
+                        <h1>Student Profile</h1>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- Start Student Registration Form -->
-        <form class="reg-form">
+        <!-- Start Student Profile -->
+        <form class="reg-form" method="POST" action="/student-update" enctype="multipart/form-data">
             <p class="helper-text">* denotes a required field</p>
 
             <div class="form-columns">
                 <div class="field-column">
                     <div class="field-row">
-                        <label class="form-label" for="firstName">First name</label>
-                        <input type="text" id="firstName" class="field text-field first-name-field" required>
+                        <label class="form-label" for="studentName">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" class="field text-field student-name-field" autocomplete="off" required value="{{ session['StudName'] }}">
                         <span class="message"></span>
                     </div>
                     <div class="field-row">
-                        <label class="form-label cf" for="lastName">Last name</label>
-                        <input type="text" id="lastName" class="field text-field last-name-field" required>
+                        <label class="form-label" for="studentID">Student ID</label>
+                        <input type="text" id="studentID" name="studentID" class="field text-field student-id-field" autocomplete="off" required value="{{ session['StudID'] }}">
                         <span class="message"></span>
                     </div>
                     <div class="field-row">
-                        <label class="form-label" for="initials">Father Name</label>
-                        <input type="text" id="initials" class="field text-field initials-field">
-                    </div>
-
-
-                    <div class="field-row">
-                        <label class="form-label" for="dateOfBirth">Date of birth</label>
-                        <input type="date" id="dateOfBirth" class="field date-field dob-field" min="1900-01-01"
-                            max="2015-09-18" required>
+                        <label class="form-label" for="studentNRIC">NRIC Number</label>
+                        <input type="text" id="studentNRIC" name="studentNRIC" class="field text-field nric-field" autocomplete="off" required value="{{ session['NRIC'] }}">
                         <span class="message"></span>
                     </div>
-
                     <div class="field-row">
-                        <label class="form-label" for="tel">Tel</label>
-                        <input type="tel" id="tel" class="field text-field tel-field" required>
+                        <label class="form-label" for="studentGender">Gender</label>
+                        <select id="studentGender" name="studentGender" class="field text-field gender-field" autocomplete="off" required>
+                            <option value="male" {% if session['Gender'] == 'male' %}selected{% endif %}>Male</option>
+                            <option value="female" {% if session['Gender'] == 'female' %}selected{% endif %}>Female</option>
+                        </select>
                         <span class="message"></span>
                     </div>
-
                     <div class="field-row">
-                        <label class="form-label" for="hs">High School Name</label>
-                        <input type="text" id="hs" class="field text-field hs-field" required>
+                        <label class="form-label" for="progStudy">Programme of Study</label>
+                        <input type="text" id="progStudy" name="progStudy" class="field text-field prog-study-field" autocomplete="off" required value="{{ session['Programme'] }}">
                         <span class="message"></span>
                     </div>
-
                     <div class="field-row">
-                        <label class="form-label" for="tel">Permanent Address</label>
-                        <input type="tel" id="tel" class="field text-field address-field" required>
+                        <label class="form-label" for="faculty">Faculty</label>
+                        <input type="text" id="faculty" name="faculty" class="field text-field faculty-field" autocomplete="off" required value="{{ session['Faculty'] }}">
+                        <span class="message"></span>
+                    </div>
+                    <div class="field-row">
+                        <label class="form-label" for="cgpa">CGPA</label>
+                        <input type="text" id="cgpa" name="cgpa" class="field text-field cgpa-field" autocomplete="off" required value="{{ session['CGPA'] }}">
+                        <span class="message"></span>
+                    </div>
+                    <div class="field-row">
+                        <label class="form-label" for="StudentEmail">TARUMT Email</label>
+                        <input type="email" id="StudentEmail" name="StudentEmail" class="field text-field tarumt-email-field"
+                            placeholder="xxx-wm99@student.tarc.edu.my" required autocomplete="off" value="{{ session['TarumtEmail'] }}">
+                            <span class="message"></span>
+                    </div>
+                    <div class="field-row">
+                        <label class="form-label" for="studentMobileNum">Mobile Number</label>
+                        <input type="tel" id="studentMobileNum" name="studentMobileNum" class="field text-field mobile-num-field" autocomplete="off" required value="{{ session['PhoneNum'] }}">
+                        <span class="message"></span>
+                    </div>
+                    <div class="field-row">
+                        <label class="form-label" for="internBatch">Intern Batch</label>
+                        <input type="text" id="internBatch" name="internBatch" class="field text-field intern-batch-field" placeholder="FEB 2024" autocomplete="off"
+                            required value="{{ session['InternBatch'] }}">
                         <span class="message"></span>
                     </div>
                 </div>
 
                 <div class="field-column">
                     <div class="field-row">
-                        <label class="form-label">Your Level</label>
-                        <select class="form-dropdown field">
-                            <option value="1st Year"> 1st Year </option>
-                            <option value="2nd Year"> 2nd Year </option>
-                            <option value="3rd Year"> 3rd Year </option>
-                            <option value="4th Year"> 4th Year </option>
-                            <option value="5th Year"> 5th Year </option>
-                        </select>
-                    </div>
-                    <div class="field-row">
-                        <label class="form-label" for="email">Email</label>
-                        <input type="email" id="email" class="field text-field email-field" required>
+                        <label class="form-label" for="HomeAddress">Home Address</label>
+                        <textarea id="HomeAddress" name="HomeAddress" class="field text-field home-address-field" rows="6" cols="59" required>{{ session['HomeAddress'] }}</textarea>
                         <span class="message"></span>
                     </div>
                     <div class="field-row">
-                        <label class="form-label"> Degree Program</label>
-                        <select class="field form-dropdown">
-                            <option value="BS in Pre-Med Physics"> BS in Pre-Med Physics </option>
-                            <option value="BS in Physics minor in Economics"> BS in Physics minor in Economics </option>
-                            <option value="BS in Physics minor in Finance"> BS in Physics minor in Finance </option>
-                            <option value="BS in Physics with specialization in Material Science"> BS in Physics with
-                                specialization in Material Science </option>
-                            <option value="BS in Physics with specialization in Medical Instrumentation"> BS in Physics
-                                with
-                                specialization in Medical Instrumentation </option>
-                            <option value="MS in Physics"> MS in Physics </option>
-                            <option value="PhD in Physics"> PhD in Physics </option>
-                        </select>
-                    </div>
-                    <div class="field-row">
-                        <label class="form-label">Upload Document 1</label>
-                        <input type="file" id="document1" class="field file-field" accept=".pdf, .doc, .docx" required>
+                        <label class="form-label" for="StudentPersonalEmail">Personal Email</label>
+                        <input type="email" id="StudentPersonalEmail" name="StudentPersonalEmail" class="field text-field personal-email-field"
+                            placeholder="xxx@gmail.com" required autocomplete="off" value="{{ session['PersonalEmail'] }}">
                         <span class="message"></span>
                     </div>
                     <div class="field-row">
-                        <label class="form-label">Upload Document 2</label>
-                        <input type="file" id="document2" class="field file-field" accept=".pdf, .doc, .docx" required>
+                        <label class="form-label" for="profilePhoto">Profile Photo</label>
+                        <input type="file" id="profilePhoto" name="profilePhoto" class="field text-field profile-pic-field" accept="image/*">
+                        {% if session['ProfilePhoto'] %}
+                        <a href="{{ session['ProfilePhoto'] }}" target="_blank" class="btn btn-primary">View</a>
+                        {% endif %}
                         <span class="message"></span>
                     </div>
                     <div class="field-row">
-                        <label class="form-label">Upload Document 3</label>
-                        <input type="file" id="document3" class="field file-field" accept=".pdf, .doc, .docx" required>
+                        <label class="form-label" for="studPassword">Password</label>
+                        <input type="password" id="studPassword" name="studPassword" class="field text-field password-field" required autocomplete="off" value="{{ session['Password'] }}">
                         <span class="message"></span>
                     </div>
                     <div class="field-row">
-                        <label class="form-label">Upload Document 4</label>
-                        <input type="file" id="document4" class="field file-field" accept=".pdf, .doc, .docx" required>
+                        <label class="form-label" for="resume">Resume</label>
+                        <input type="file" id="resume" name="resume" class="field file-field" accept=".pdf, .doc, .docx">
+                        {% if session['Resume'] %}
+                        <a href="{{ session['Resume'] }}" target="_blank" class="btn btn-primary">View</a>
+                        {% endif %}
+                        <span class="message"></span>
+                    </div>
+                    <div class="field-row">
+                        <label class="form-label" for="weeklyReport">Weekly Report</label>
+                        <input type="file" id="weeklyReport" name="weeklyReport" class="field file-field" accept=".pdf, .doc, .docx">
+                        {% if session['WeeklyReport'] %}
+                        <a href="{{ session['WeeklyReport'] }}" target="_blank" class="btn btn-primary">View</a>
+                        {% endif %}
+                        <span class="message"></span>
+                    </div>
+                    <div class="field-row">
+                        <label class="form-label" for="monthlyReport">Monthly Report</label>
+                        <input type="file" id="monthlyReport" name="monthlyReport" class="field file-field" accept=".pdf, .doc, .docx">
+                        {% if session['MonthlyReport'] %}
+                        <a href="{{ session['MonthlyReport'] }}" target="_blank" class="btn btn-primary">View</a>
+                        {% endif %}
+                        <span class="message"></span>
+                    </div>
+                    <div class="field-row">
+                        <label class="form-label" for="finalReport">Final Report</label>
+                        <input type="file" id="finalReport" name="finalReport" class="field file-field" accept=".pdf, .doc, .docx">
+                        {% if session['FinalReport'] %}
+                        <a href="{{ session['FinalReport'] }}" target="_blank" class="btn btn-primary">View</a>
+                        {% endif %}
                         <span class="message"></span>
                     </div>
                 </div>
@@ -214,12 +236,11 @@
             <div class="field-row">
                 <label class="form-label"></label>
                 <div class="button-container">
-                    <button class="form-button">Register</button>
+                    <button class="form-button" name="updateButton">Update</button>
                 </div>
             </div>
         </form>
-        <!-- End Student Registration Form -->
-
+        <!-- End Student Profile -->
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
