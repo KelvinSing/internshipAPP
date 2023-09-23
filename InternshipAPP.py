@@ -554,7 +554,9 @@ def joblist():
         jobs.append(app_dict)
         logo = "https://" + bucket + ".s3.amazonaws.com/" + row[0] + "_logo.png"
         logos.append(logo)
-    return render_template('job-list.html', jobs=jobs, logos=logos)
+    
+    job_logo = zip(jobs, logos)
+    return render_template('job-list.html', job_logo=job_logo)
 
 @app.route("/student-register", methods=['POST'])
 def studentRegister():
