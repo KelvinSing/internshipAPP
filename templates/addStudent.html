@@ -105,22 +105,22 @@
         <!-- Category Start -->
         <div class="addStudent-box">
             <h2>Add Student</h2>
-            <form>
+            <form method = "POST" enctype="multipart/form-data" action="/assignSupervisorFunc" method="post">
                 <div class="studentInfo-box">
-                    <input type="text" name="" required="">
+                    <input type="text" name="StudentID" id="StudentID" required>
                     <label>Student ID</label>
                 </div>
                 <div class="studentInfo-box">
-                    <input type="text" name="" required="">
+                    <input type="text" name="StudentName" id="StudentName" required>
                     <label>Student Name</label>
                 </div>
-                <a href="/studentList">
+                <button>
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Submit
-                </a>
+                </button>
             </form>
         </div>
         <!-- Category End -->
