@@ -536,24 +536,24 @@ def disapproveCompany(company_name, job_title):
 @app.route("/job-list", methods=['GET', 'POST'])
 def joblist():
     cursor = db_conn.cursor()
-    cursor.execute("SELECT companyName, jobTitle, jobType, salary FROM Post_Job WHERE status = 'Approved'")
-    approved_jobs = cursor.fetchall()
+    cursor.execute("SELECT companyName, jobTitle, jobType, salary FROM Post_Job WHERE status = 'Disapproved'")
+    jobs = cursor.fetchone()
     cursor.close()
     
     # Initialize an empty list to store dictionaries
-    jobs = []
+    #jobs = []
     
     # Iterate through the fetched data and create dictionaries
-    for row in approved_jobs:
-        app_dict = {
-            'companyName': row[0],
-            'jobTitle': row[1],
-            'salary': row[2],
-            'jobType': row[3]
-        }
-        jobs.append(app_dict)
+    #for row in approved_jobs:
+    #    app_dict = {
+    #        'companyName': row[0],
+    #        'jobTitle': row[1],
+    #        'salary': row[2],
+    #        'jobType': row[3]
+    #    }
+    #    jobs.append(app_dict)
 
-    return render_template('job-list.html', approved_jobs=jobs)
+    return render_template('job-list.html', jobs=jobs)
 
 @app.route("/student-register", methods=['POST'])
 def studentRegister():
