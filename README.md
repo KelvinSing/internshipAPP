@@ -1,3 +1,4 @@
+#!/bin/bash
 sudo su
 dnf install git -y
 git clone https://github.com/KelvinSing/internshipAPP.git
